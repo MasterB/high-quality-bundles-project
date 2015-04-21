@@ -41,6 +41,9 @@ class RegisterUserHandler implements MessageHandler{
      */
     public function handle(Message $message)
     {
+        //echo "LL:". (string) Country::fromCountryCode($message->country);
+        //die;
+
         $user = User::register(
             $message->email,
             $message->password,

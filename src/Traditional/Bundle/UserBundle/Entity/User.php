@@ -37,6 +37,11 @@ class User implements ContainsRecordedMessages
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $country;
+
 
     public function __construct($email, $password, Country $country){
         $this->setEmail($email);
@@ -54,10 +59,7 @@ class User implements ContainsRecordedMessages
     }
 
 
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $country;
+
 
     public function getId()
     {

@@ -19,6 +19,7 @@ class Country {
     private function __construct($countryCode){
         // Assertion
         $countryName = Intl::getRegionBundle()->getCountryName($countryCode);
+
         \Assert\that($countryName)->notNull();
 
         $this->countyCode = $countryCode;
