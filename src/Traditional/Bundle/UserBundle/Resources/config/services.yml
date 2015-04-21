@@ -14,3 +14,12 @@ services:
             - @mailer
         tags:
             - { name: event_subscriber, subscribes_to: User\Event\UserWasRegistered }
+
+
+
+    register_user_console_command:
+        class: User\Cli\RegisterUserConsoleCommand
+        calls:
+            - [setContainer, [@service_container]]
+        tags:
+            - { name: console.command }

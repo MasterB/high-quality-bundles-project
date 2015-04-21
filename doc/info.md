@@ -15,10 +15,16 @@ Architecture
 - Layers (View, Domain-(Business), Application)
 
 
-Command Object
+Command Object -> Command Bus
 - Contains action data
 - Task
 - data come from user most
+- only one action
+
+
+Events -> Event Bus
+- Could call several actions
+
 
 
 
