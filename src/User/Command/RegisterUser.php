@@ -50,6 +50,4 @@ class RegisterUser implements Message {
         return $this->id;
     }
 
-    //public function getCountry
-
 }
