@@ -14,21 +14,18 @@ use SimpleBus\Message\Recorder\RecordsMessages;
 use User\Command\RegisterUser;
 use Traditional\Bundle\UserBundle\Entity\User;
 use User\Domain\Model\Country;
+use User\Domain\Model\UserRepository;
 use User\Event\UserWasRegistered;
 
 class RegisterUserHandler implements MessageHandler{
 
-    private $doctrine;
+
+    private $userRepository;
 
 
-
-    /**
-     * @param \Symfony\Bridge\Doctrine\ManagerRegistry $doctrine
-     * @param \Swift_Mailer $mailer
-     */
-    public function __construct(\Symfony\Bridge\Doctrine\ManagerRegistry $doctrine)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->doctrine = $doctrine;
+        $this->userRepositpry = $userRepository;
     }
 
 
@@ -50,8 +47,10 @@ class RegisterUserHandler implements MessageHandler{
             Country::fromCountryCode($message->country)
         );
 
-        $em = $this->doctrine->getManager();
-        $em->persist($user);
+        $this->userRepository->add($user);
+
+       // $em = $this->doctrine->getManager();
+       // $em->persist($user);
         //$em->flush();  // in simple bus transaction
 
     }

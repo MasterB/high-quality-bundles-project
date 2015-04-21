@@ -21,11 +21,8 @@ class UserController extends Controller
      */
     public function listAction()
     {
-        $users = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('Traditional\Bundle\UserBundle\Entity\User')
-            ->findAll();
+
+        $users = $this->get('user_repository')->findAll();
 
         return array(
             'users' => $users
