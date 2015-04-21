@@ -3,6 +3,15 @@ services:
         class: User\Command\RegisterUserHandler
         arguments:
             - @doctrine
-            - @mailer
+            - @event_recorder
         tags:
             - {name: command_handler, handles: \User\Command\RegisterUser }
+
+
+
+    when_user_was_registered_send_welcome_email:
+        class: User\Event\WhenUserWasRegisteredSendWelcomEmail
+        arguments:
+            - @mailer
+        tags:
+            - { name: event_subscriber, subscribes_to: User\Event\UserWasRegistered }

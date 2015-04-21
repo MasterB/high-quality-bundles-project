@@ -75,3 +75,11 @@ doctrine:
 
 swiftmailer:
     disable_delivery: true
+
+
+# Logging aktivieruung SimpleBus
+command_bus:
+    logging: ~
+
+event_bus:
+    logging: ~

@@ -9,24 +9,30 @@
 namespace User\Command;
 
 use SimpleBus\Message\Handler\MessageHandler;
+use SimpleBus\Message\Recorder\RecordsMessages;
 use User\Command\RegisterUser;
 use Traditional\Bundle\UserBundle\Entity\User;
 use User\Domain\Model\Country;
+use User\Event\UserWasRegistered;
 
 class RegisterUserHandler implements MessageHandler{
 
     private $doctrine;
 
-    private $mailer;
+    /**
+     * @var RecordsMessages
+     */
+    private $eventRecorder;
+
 
     /**
      * @param \Symfony\Bridge\Doctrine\ManagerRegistry $doctrine
      * @param \Swift_Mailer $mailer
      */
-    public function __construct(\Symfony\Bridge\Doctrine\ManagerRegistry $doctrine, \Swift_Mailer $mailer)
+    public function __construct(\Symfony\Bridge\Doctrine\ManagerRegistry $doctrine, RecordsMessages $eventRecorder)
     {
         $this->doctrine = $doctrine;
-        $this->mailer = $mailer;
+        $this->eventRecorder = $eventRecorder;  // Sicherstellung bei Abbruch recording
     }
 
 
@@ -46,8 +52,8 @@ class RegisterUserHandler implements MessageHandler{
         $em->persist($user);
         //$em->flush();  // in simple bus transaction
 
-        $message = \Swift_Message::newInstance('Welcome', 'Yes, welcome');
-        $message->setTo($user->getEmail());
-        $this->get('mailer')->send($message);
+        $event = new UserWasRegistered($user);
+        $this->eventRecorder->record($event);
+
     }
 }
