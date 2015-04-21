@@ -11,8 +11,11 @@ namespace User\Command;
 use SimpleBus\Message\Message;
 use Symfony\Component\Validator\Constraints as Assert;
 
+use Rhumsaa\Uuid\Uuid;
+
 
 class RegisterUser implements Message {
+
 
     /**
      * Assert\Email()
@@ -32,6 +35,16 @@ class RegisterUser implements Message {
      */
     public $country;
 
+    private $id;
+
+    public function getId()
+    {
+        if ($this->id === null) {
+            $this->id = Uuid::uuid4();
+        }
+
+        return $this->id;
+    }
 
     //public function getCountry
 

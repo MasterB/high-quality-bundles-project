@@ -46,7 +46,7 @@ class UserController extends Controller
             $command = $form->getData();
             $this->get('command_bus')->handle($command);
 
-            return $this->redirect($this->generateUrl('user_list'));
+            return $this->redirect($this->generateUrl('user_list', [$command->getId()]));
 
         }
 

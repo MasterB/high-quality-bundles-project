@@ -42,6 +42,7 @@ class RegisterUserHandler implements MessageHandler{
         //die;
 
         $user = User::register(
+            $message->getId(),
             $message->email,
             $message->password,
             Country::fromCountryCode($message->country)

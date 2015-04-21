@@ -4,6 +4,7 @@ namespace Traditional\Bundle\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Rhumsaa\Uuid\Uuid;
 use SimpleBus\Message\Recorder\ContainsRecordedMessages;
 use SimpleBus\Message\Recorder\PrivateMessageRecorderCapabilities;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -22,8 +23,8 @@ class User implements ContainsRecordedMessages
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="string")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
 
@@ -43,15 +44,16 @@ class User implements ContainsRecordedMessages
     private $country;
 
 
-    public function __construct($email, $password, Country $country){
+    public function __construct(Uuid $id, $email, $password, Country $country){
+        $this->id = (string) $id;
         $this->setEmail($email);
         $this->setPassword($password);
         $this->country = (string) $country;
     }
 
-    public static function register($email, $password, Country $country)
+    public static function register(Uuid $id, $email, $password, Country $country)
     {
-        $user = new self($email, $password, $country);
+        $user = new self($id, $email, $password, $country);
         $event = new UserWasRegistered($user);
         $user->record($event);
 
@@ -63,7 +65,7 @@ class User implements ContainsRecordedMessages
 
     public function getId()
     {
-        return $this->id;
+        return Uuid::fromString($this->id);
     }
 
     /*

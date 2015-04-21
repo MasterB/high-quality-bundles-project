@@ -35,3 +35,7 @@ Boundaries
 Validation
 - maybe Domain Service over all
 
+
+Randnotizen:
+- UUID for ID for not wait of auto generatet ID from database
+
