@@ -4,7 +4,7 @@ services:
         arguments:
             - @doctrine
         tags:
-            - {name: command_handler, handles: \User\Command\RegisterUser }
+            - {name: command_handler, handles: User\Command\RegisterUser }
 
 
 

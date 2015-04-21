@@ -9,6 +9,7 @@
 namespace User\Command;
 
 use SimpleBus\Message\Handler\MessageHandler;
+use SimpleBus\Message\Message;
 use SimpleBus\Message\Recorder\RecordsMessages;
 use User\Command\RegisterUser;
 use Traditional\Bundle\UserBundle\Entity\User;
@@ -31,7 +32,10 @@ class RegisterUserHandler implements MessageHandler{
     }
 
 
+
     /**
+     * Handles the given message.
+     *
      * @param RegisterUser $message
      * @return void
      */
@@ -46,7 +50,6 @@ class RegisterUserHandler implements MessageHandler{
         $em = $this->doctrine->getManager();
         $em->persist($user);
         //$em->flush();  // in simple bus transaction
-
 
     }
 }
