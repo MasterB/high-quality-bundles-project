@@ -48,7 +48,7 @@ class RegisterUserHandler implements MessageHandler{
             Country::fromCountryCode($message->country)
         );
 
-        $this->userRepository->add($user);
+        $this->userRepositpry->add($user);
 
        // $em = $this->doctrine->getManager();
        // $em->persist($user);

@@ -2,7 +2,7 @@ services:
     register_user_handler:
         class: User\Command\RegisterUserHandler
         arguments:
-            - @doctrine
+            - @user_repository
         tags:
             - {name: command_handler, handles: User\Command\RegisterUser }
 

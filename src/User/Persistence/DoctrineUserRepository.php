@@ -21,7 +21,6 @@ class DoctrineUserRepository implements UserRepository {
         $this->doctrine = $doctrine;
     }
 
-
     public function findAll(){
         return $this
             ->doctrine
