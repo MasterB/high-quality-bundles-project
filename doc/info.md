@@ -38,6 +38,7 @@ Validation
 
 Randnotizen:
 - UUID for ID for not wait of auto generatet ID from database
+- In Events nur die wirklich benoetigten Daten uebergeben / diese nach aussen gegeben
 
 Fragen:
 - SimpleBus for production?

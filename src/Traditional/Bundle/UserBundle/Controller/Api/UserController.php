@@ -8,8 +8,10 @@
 
 namespace Traditional\Bundle\UserBundle\Controller\Api;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use User\Command\RegisterUser;
@@ -20,6 +22,7 @@ use User\Command\RegisterUser;
 class UserController extends Controller {
 
     /**
+     * REST Aufruf: { email: '', password:'', country:'' }
      *
      * @Route("/register")
      * @Method({"POST"})
