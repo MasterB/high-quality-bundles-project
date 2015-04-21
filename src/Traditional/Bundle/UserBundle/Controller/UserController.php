@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Traditional\Bundle\UserBundle\Entity\User;
 use Traditional\Bundle\UserBundle\Form\CreateUserType;
+use User\Command\RegisterUser;
 
 /**
  * @Route("/")
@@ -36,8 +37,11 @@ class UserController extends Controller
      */
     public function createAction(Request $request)
     {
+        // Default values on Controller
+        $command = new RegisterUser();
+        $command->email = 'xxx@webtech.ch';
 
-        $form = $this->createForm(new CreateUserType());
+        $form = $this->createForm(new CreateUserType(), $command);
 
         $form->handleRequest($request);
 
