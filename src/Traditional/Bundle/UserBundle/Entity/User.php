@@ -4,15 +4,22 @@ namespace Traditional\Bundle\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use SimpleBus\Message\Recorder\ContainsRecordedMessages;
+use SimpleBus\Message\Recorder\PrivateMessageRecorderCapabilities;
 use Symfony\Component\Validator\Constraints as Assert;
 use User\Domain\Model\Country;
+use User\Event\UserWasRegistered;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="traditional_user")
  */
-class User
+class User implements ContainsRecordedMessages
 {
+    // Trait
+    use PrivateMessageRecorderCapabilities;
+
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -36,6 +43,16 @@ class User
         $this->setPassword($password);
         $this->country = (string) $country;
     }
+
+    public static function register($email, $password, Country $country)
+    {
+        $user = new self($email, $password, $country);
+        $event = new UserWasRegistered($user);
+        $user->record($event);
+
+        return $user;
+    }
+
 
     /**
      * @ORM\Column(type="string")

@@ -3,7 +3,6 @@ services:
         class: User\Command\RegisterUserHandler
         arguments:
             - @doctrine
-            - @event_recorder
         tags:
             - {name: command_handler, handles: \User\Command\RegisterUser }
 

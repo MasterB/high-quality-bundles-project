@@ -19,20 +19,15 @@ class RegisterUserHandler implements MessageHandler{
 
     private $doctrine;
 
-    /**
-     * @var RecordsMessages
-     */
-    private $eventRecorder;
 
 
     /**
      * @param \Symfony\Bridge\Doctrine\ManagerRegistry $doctrine
      * @param \Swift_Mailer $mailer
      */
-    public function __construct(\Symfony\Bridge\Doctrine\ManagerRegistry $doctrine, RecordsMessages $eventRecorder)
+    public function __construct(\Symfony\Bridge\Doctrine\ManagerRegistry $doctrine)
     {
         $this->doctrine = $doctrine;
-        $this->eventRecorder = $eventRecorder;  // Sicherstellung bei Abbruch recording
     }
 
 
@@ -42,7 +37,7 @@ class RegisterUserHandler implements MessageHandler{
      */
     public function handle(Message $message)
     {
-        $user = new User(
+        $user = User::register(
             $message->email,
             $message->password,
             Country::fromCountryCode($message->country)
@@ -52,8 +47,6 @@ class RegisterUserHandler implements MessageHandler{
         $em->persist($user);
         //$em->flush();  // in simple bus transaction
 
-        $event = new UserWasRegistered($user);
-        $this->eventRecorder->record($event);
 
     }
 }
