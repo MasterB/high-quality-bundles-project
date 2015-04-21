@@ -18,21 +18,26 @@ class RegisterUser implements Message {
 
 
     /**
-     * Assert\Email()
-     * Assert|NotNull()
+     *
+     * @Assert\NotNull()
+     * @Assert\Email()
+     *
      * @Serializer\Type("string")
      */
     public $email;
 
     /**
-     * Assert\Length(min=8)
+     * @Assert\NotNull()
+     * @Assert\Length(min=8)
+     *
      * @Serializer\Type("string")
      */
     public $password;
 
     /**
-     * Assert\Country
-     * Assert|NotNull()
+     * @Assert\NotNull()
+     * @Assert\Country()
+     *
      * @Serializer\Type("string")
      *
      * @var string
