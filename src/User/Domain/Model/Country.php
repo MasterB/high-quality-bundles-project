@@ -14,7 +14,7 @@ use Symfony\Component\Intl\Intl;
 
 class Country {
 
-    private $countryCode;
+    protected $countryCode;
 
     private function __construct($countryCode){
         // Assertion
@@ -22,7 +22,7 @@ class Country {
 
         \Assert\that($countryName)->notNull();
 
-        $this->countyCode = $countryCode;
+        $this->countryCode = $countryCode;
     }
 
     public static function fromCountryCode($countryCode){
