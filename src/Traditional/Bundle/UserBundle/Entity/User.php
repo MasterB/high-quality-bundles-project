@@ -4,6 +4,9 @@ namespace Traditional\Bundle\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use User\Domain\Model\Country;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="traditional_user")
@@ -27,6 +30,13 @@ class User
      */
     private $password;
 
+
+    public function __construct($email, $password, Country $country){
+        $this->setEmail($email);
+        $this->setPassword($password);
+        $this->country = (string) $country;
+    }
+
     /**
      * @ORM\Column(type="string")
      */
@@ -37,18 +47,22 @@ class User
         return $this->id;
     }
 
+    /*
     public function setId($id)
     {
         $this->id = $id;
     }
+    */
 
     public function getEmail()
     {
         return $this->email;
     }
 
-    public function setEmail($email)
+    private function setEmail($email)
     {
+        \Assert\that($email)->email();
+
         $this->email = $email;
     }
 
@@ -57,18 +71,30 @@ class User
         return $this->password;
     }
 
-    public function setPassword($password)
+    private function setPassword($password)
     {
+        \Assert\that($password)->string()->minLength(8);
+
         $this->password = $password;
     }
 
+    /**
+     * @return Country
+     */
     public function getCountry()
     {
-        return $this->country;
+        return Country::fromCountryCode($this->country);
     }
 
-    public function setCountry($country)
+    /*
+    private function setCountry($country)
     {
+        // Assertion
+        $countryName = Intl::getRegionBundle()->getCountryName($country);
+        \Assert\that($country)->notNull($countryName);
+
+
         $this->country = $country;
     }
+    */
 }
