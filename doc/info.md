@@ -39,3 +39,7 @@ Validation
 Randnotizen:
 - UUID for ID for not wait of auto generatet ID from database
 
+Fragen:
+- SimpleBus for production?
+- UUID Performane Issues on mysql?
+
