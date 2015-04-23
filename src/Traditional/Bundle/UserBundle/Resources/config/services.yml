@@ -7,6 +7,14 @@ services:
             - {name: command_handler, handles: User\Command\RegisterUser }
 
 
+    update_user_handler:
+        class: User\Command\UpdateUserHandler
+        arguments:
+            - @user_repository
+        tags:
+            - {name: command_handler, handles: User\Command\UpdateUser }
+
+
 
     when_user_was_registered_send_welcome_email:
         class: User\Event\WhenUserWasRegisteredSendWelcomEmail

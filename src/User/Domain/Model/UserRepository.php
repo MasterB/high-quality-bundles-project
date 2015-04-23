@@ -11,7 +11,11 @@ use Traditional\Bundle\UserBundle\Entity\User;
 
 interface UserRepository {
 
+    public function find($id);
+
     public function add(User $user);
+
+    public function update(User $user);
 
     public function findAll();
 

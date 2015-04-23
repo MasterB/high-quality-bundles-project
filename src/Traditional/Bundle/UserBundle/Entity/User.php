@@ -44,12 +44,13 @@ class User implements ContainsRecordedMessages
     private $country;
 
 
-    public function __construct(Uuid $id, $email, $password, Country $country){
+    private function __construct(Uuid $id, $email, $password, Country $country){
         $this->id = (string) $id;
         $this->setEmail($email);
         $this->setPassword($password);
         $this->country = (string) $country;
     }
+
 
     public static function register(Uuid $id, $email, $password, Country $country)
     {
@@ -61,6 +62,11 @@ class User implements ContainsRecordedMessages
     }
 
 
+    public function update($email, $password)
+    {
+        $this->setEmail($email);
+        $this->setPassword($password);
+    }
 
 
     public function getId()

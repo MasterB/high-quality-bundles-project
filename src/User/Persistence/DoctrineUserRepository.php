@@ -21,6 +21,22 @@ class DoctrineUserRepository implements UserRepository {
         $this->doctrine = $doctrine;
     }
 
+
+    /**
+     * @param string $id
+     * @return User
+     */
+    public function find($id){
+        return $this
+            ->doctrine
+            ->getManager()
+            ->getRepository('Traditional\Bundle\UserBundle\Entity\User')
+            ->find($id);
+    }
+
+    /**
+     * @return array|\Traditional\Bundle\UserBundle\Entity\User[]
+     */
     public function findAll(){
         return $this
             ->doctrine
@@ -29,7 +45,20 @@ class DoctrineUserRepository implements UserRepository {
             ->findAll();
     }
 
+
+    /**
+     * @param User $user
+     */
     public function add(User $user)
+    {
+        $em = $this->doctrine->getManager();
+        $em->persist($user);
+    }
+
+    /**
+     * @param User $user
+     */
+    public function update(User $user)
     {
         $em = $this->doctrine->getManager();
         $em->persist($user);
