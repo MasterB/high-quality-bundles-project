@@ -18,7 +18,6 @@ class RegisterUser implements Message {
 
 
     /**
-     *
      * @Assert\NotNull()
      * @Assert\Email()
      *

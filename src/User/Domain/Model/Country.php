@@ -41,4 +41,13 @@ class Country {
     public function getName(){
         return Intl::getRegionBundle()->getCountryName($this->countryCode);
     }
+
+    /**
+     * Countrycode
+     *
+     * @return null|string
+     */
+    public function getCode(){
+        return $this->countryCode;
+    }
 }

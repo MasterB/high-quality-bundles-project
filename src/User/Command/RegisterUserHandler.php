@@ -29,7 +29,6 @@ class RegisterUserHandler implements MessageHandler{
     }
 
 
-
     /**
      * Handles the given message.
      *
