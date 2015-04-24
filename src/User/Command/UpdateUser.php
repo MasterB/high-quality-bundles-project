@@ -37,6 +37,7 @@ class UpdateUser implements Message {
         $this->user = $user;
 
         $this->email = $this->user->getEmail();
+        $this->password = $this->user->getPassword();
     }
 
     public function getUser()
